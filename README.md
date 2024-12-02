@@ -1,7 +1,7 @@
 # Understanding Data Analytics
 Data analytics in simple terms is about understanding data by extracting useful information from it. It's a fascinating field that makes sense of the past and provides mechanisms to make valuable predictions about the future. The data analytics process involves *collecting, organising, analysing, and transforming* data into useful information, which drives decision-making. 
 
-Analytical thinking is about identifying and defining a problem and then solving it by using data in an organised, step-by-step manner (Google Data Analytics Professional Certificate: [Foundations: Data, Data, Everywhere](https://www.coursera.org/learn/foundations-data?specialization=google-data-analytics)).
+Analytical thinking is about identifying and defining a problem and then solving it by using data in an organised, step-by-step manner (Google Data Analytics Professional Certificate: [Foundations: Data, Data, Everywhere](https://www.coursera.org/learn/foundations-data?specialization=google-data-analytics)). A data analyst must have the relevant soft skills: communication, curiosity, problem solving, and creativity.
 
 ## 📊 Different Types of Analytics
 There are 4 main types of analytics that are specific to the respective needs of the data.
@@ -49,3 +49,10 @@ There are two types of data: quantitative and qualitative. __Quantitative__ data
 3. Thematic Analysis: groups qualitative data into categories based on the frequency that they appear.
 4. Grounded Tehory Analysis: creates a hypothesis from the data that was collected and analysed.
 5. Discourse Analysis: aims to understand the meaning behind data that is not quantitative.
+
+## Data Analysis Tools
+There are numerous tools that can be used in data analysis. The following are some key tools:
+- Speadheets: Micorsoft and Google Sheets
+- SQL: Structured Query Language for working with databases
+- Visualisation Tools: Power BI and Tableau to make static or dynamic visuals
+- Programming Languages: Python and R along with relevant libraries like pandas, ggplot, and seaborn are the main programming languages used.
