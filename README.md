@@ -13,3 +13,39 @@ There are 4 main types of analytics that are specific to the respective needs of
 |Prescriptive | Uses AI, Algorithms, and Machine Learning to provide actions to be taken from the outcomes of predictive analysis. |
 
 ## ⛓️‍💥 The Data Analysis Process
+There are different approaches that one can take when performing analytics. The following are the 5 most typical steps involved in a data analysis project:
+1. 🧩 Understand the Problem: Know why you are performing an analysis use the follwing as guides:
+     - Have a clear definition of the issue or problem to be solved;
+     - Know the type of problem: prediction, categorising, pattern finding, and so on;
+     - Create a hypothesis to test
+     - Helpful Questions to ask:
+         - What type of results is needed?
+         - Who are the results for?
+         - When should the project be completed?
+2. 📦 Collect and Prepare the Data: Focus on collecting the relevant data from different relevant sources:
+     - Types of Data Sources:
+         - Primary or internal data: data that may be readily available from within an organisation;
+         - Secondary data: customised data from outside sources;
+         - Tertiary data: compiled sources of secondary data
+     - Ensure that the data is reliable, original, comprehensive, current, and cited
+     - Decide on which format the data should be collected in such as .csv,.txt,.xls, or .json
+3. 🧹Clean the Data: Ensure that the data has integrity (accurate, trustworthy, complete, and consitent)
+     - Involves dealing with missing values, changing data types and structures, taking random samples for analysis, and removing duplicates
+4. 🔎 Analyze the Data: The acutal understanding of the data and using the correct techniques to solve the problem.
+5. 🖼️ Visualise and Share the Data: Create different graphs and visuals to represent the findings of the analysis. Select the correct tool to share the findings with those that need it.
+
+## ⚙️ Data Analysis Techniques
+There are two types of data: quantitative and qualitative. __Quantitative__ data is data that can be measured (numerical), while __qualitative__ data is data that describes the characteristics of an object. Both types of data have there respective methods.
+### Quantitative Techniques
+1. Cluster Analysis: aka segmentation or taxonomy analysis is about grouping data into different segments or clusters based on their similarities (homogenous). It is used to find hidden patterns within data.
+2. Regression Analysis: Mainly used in predictive analysis to understand the correlation betwwen variables and not the *cause and effect*. It looks at the other factors (independent variables) that may have a relationship with the dependent variable/s.
+3. Monte Carlo Simulation: using different scenarios to arrive at a desired outcome.
+4. Tine Series Analysis: identifies trends of a variable over time.
+5. Cohort Analysis: places data into categories based on similarities and analyses the groups over time.
+
+### Qualitative Techniques
+1. Content Analysis: focuses on the frequency of categorical data and the meaning of its context. Can also be used with quantitative data.
+2. Sentiment Analysis: evaluates the emotional tone from textual data. A great technique for dealing with customer satisfaction.
+3. Thematic Analysis: groups qualitative data into categories based on the frequency that they appear.
+4. Grounded Tehory Analysis: creates a hypothesis from the data that was collected and analysed.
+5. Discourse Analysis: aims to understand the meaning behind data that is not quantitative.
