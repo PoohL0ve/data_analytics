@@ -13,6 +13,27 @@ Topics discussed:
 ## A Little on SQL
 **Structured Query Language** (SQL) is the main programming language used to manipulate, transform, and query data that is stored in a relational database. It was created in 1970 to be similar to natural languages. SQL focuses on telling the system the *what* but not the *how*.
 
+Comments are written as:
+```sql
+-- This is a single line comment
+/* This expands
+multiple lines
+*/
+```
+Like any other language SQL has a coding style:
+- **Names** should be written in snake_case and be meaningful.
+- **Spaces and Lines**: for long queries use indents and place logical operators (AND and OR) on a new line.
+- Write keywords in CAPS.
+
+|Variable Type | Description                        |
+|:-------------|:-----------------------------------|
+|User-defined | Can be created using SELECT or SET statements with the assignment operator. When perform calculation use the SELECT with :=. Example SELECT @score = AVG(hits) FROM basketball. |
+|Local | Cannot be used everywhere and needs to be declared before it can be used. DECLARE location VARCHAR (DEFAULT) is optional. The @ sign is not needed. Then the SET or SELECT keywords can be used. SET location = 'Chicago' |
+|System | Automatically created by the DBMS. Use SHOW VARIABLES with the optional parameters Global and Local. To use them use SELECT @@ |
+
+
+
+
 There are several basic data types that can be used in SQL:
 - **Interger**: represents numbers from -2147483648 to +2147483648.
 - **Decimal**: DECIMAL(precision, scale), where precision is the whole digit and scale is the number of units after the decimal point.
@@ -320,5 +341,7 @@ REFERENCES persons(person_id)
 ```
 The ALTER DROP FOREIGN KEY clause is used to delete a foreign key. If the foreign key is unknown use the SHOW CREATE TABLE tableName to get it.
 
+
+COALESCE()?
 ## Resources
 - [sqlbolt](https://sqlbolt.com/)

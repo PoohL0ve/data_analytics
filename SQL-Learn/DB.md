@@ -1,7 +1,20 @@
 # Understanding Databases and Systems
 A databases is a collection of organised data stored on a computer for easy search and retrieval operations. A database management system is a type of software that allows users to interact with the data. There are numerous types of DBMS but the two most popular types are Relational DBMS and NoSQL DBMS.
 
+In order to ensure that data integrity and security is maintained, database systems use constraints and rules. Data management is field that focuses on the creation, storage, and retrieval of data.
+
+Components of a Database system
+- **HArdware**: the physical structures that the system runs on like the RAM and CPU.
+- **Software**: programs that organise the database and allows user interaction such as DBMS and operating system software.
+- **People**: Systems Administrators (manages the entire system), Database designers, Database Administrators, Systems Analyst and Programmers.
+- **Procedures**: Rules on how the database is designed and how it is used.
+- **Data**: raw facts used to build information.
+
+
+
 ## Relational Database Model
+Columns are the properties and the rows are the entities.
+The schema describes the structure and the datatypes that each column can take.
 
 ## Design
 ### Normalisation
