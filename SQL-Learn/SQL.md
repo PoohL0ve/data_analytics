@@ -104,6 +104,69 @@ Source: [HyperSkill](https://hyperskill.org/learn/step/12100#inner-join)
 The joins only return the records that match, not necessarily the full table, mainly column.
 
 ## Data Modification
+The **INSERT** statement provides a way to add values to a table. It specifies the table, the column names, and the values to be placed. The number of values should correspond to the number of columns, and multiple values (tuples) should be separated by a comma. Not all columns need to be specified, such as auto-incrementing ids (primary-key).
+```sql
+INSERT INTO sports
+(name, years, number_players)  -- Column Names
+-- Values to be inserted
+VALUES ("football", 98, 35),
+    ("basketball", 56, 75)
+```
+
+The UPDATE clause changes the data of an entity in the table. It works with the SET and WHERE clauses, where the SET specifies the column and adds the values and the WHERE ensures it is added to the right entity by using a column value to specify.
+``` sql
+UPDATE food
+SET price = 5
+WHERE id = 3;
+```
+The DELETE clause uses the FROM clause to specify what table to delete from. The WHERE clause adds the condition which selects the correct row (entity) to remove.
+```sql
+DELETE FROM <TableName> WHERE <condition>
+```
+
+A new table can be created by specifying the column names, data types, an optional constraint, and an optional default value. The **IF NOT EXISTS** clause can be added to only add the table if it is not in the database already. The CREATE clause can also be used to create a new database.
+```sql
+CREATE TABLE IF NOT EXISTS houses (
+	house_id INT PRIMARY KEY AUTOINCREMENT,
+	type TEXT,
+	manager TEXT,
+	price FLOAT,
+	year_listed INT  --can also use INTEGER
+);
+```
+Other constraints include NOT NULL, FOREIGN KEY, UNIQUE and so on.
+
+The ALTER statement is used to add and modify(rename and delete) columns of a table. 
+```sql
+-- Adding columns to the table
+ALTER TABLE nobel_prizes
+ADD degree_type VARCHAR(50)  --Optional Constraint
+	DEFAULT None;
+
+-- Deleting a column
+ALTER TABLE languages
+DROP modify_date  -- can also be used to delete a DB
+
+-- Rename the table
+ALTER TABLE nobel_prizes
+RENAME TO nobel_winners
+```
+
+**DROP TABLE** can be used to remove a table. However, ensure that tables with foreign key that depend on the table is taken care of before removing. Also check if the table exists by using **DROP TABLE IF EXISTS**.
+
+Information (entities) can be copied from one table to the next by combining the INSERT TO and SELECT clauses.
+```sql
+INSERT INTO foods (food_type, cost, origin)
+SELECT * FROM groceries;
+```
+The data can be filtered by using a WHERE clause.
+```sql
+INSERT INTO managers (name, surname, manager_email)
+SELECT name, surname, seller_email
+FROM sellers
+WHERE name = 'John' AND surname = 'Marley';
+```
+
 
 ## Functions and Operations in SQL
 Expressions can be used on column values to extract specific data in the SELECT clause. These can be simple aithmetic operations, functions, data operations, or string manipulation. When using SELECT with strings that have multiple values use double quotes (*"brand identity"*).
