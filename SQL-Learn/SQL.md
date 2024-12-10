@@ -1,11 +1,12 @@
 # Quering Databases with SQL
-A databases is a collection of organised data stored on a computer for easy search and retrieval operations. A database management system is a type of software that allows users to interact with the data. There are numerous types of DBMS but the two most popular types are Relational DBMS and NoSQL DBMS.
 
 Topics discussed:
 1. [**What is SQL?**](#a-little-on-sql)
 2. [**Filtering Data**](#filtering-data-with-where)
 3. [**Sort the Data**](#more-filtering-and-sorting)
 4. [**Joining tables**](#queries-with-join)
+5. [**How to Modify Data?**](#data-modification)
+6. [**Performing Operations**](#functions-and-operations-in-sql)
 
 
 ## A Little on SQL
@@ -59,6 +60,7 @@ WHERE EXISTS (
   WHERE order_items.order_id = orders.order_id
 );
 ```
+NULL values can be replaced with default datatype specific values. A great way to test for NULL values is to extract them using the WHERE clause.
 
 
 ## More Filtering and Sorting
@@ -98,4 +100,76 @@ Other types of JOINS:
 Visual Representation
 ![Different SQL JOINS](sql-joins.png)
 Source: [HyperSkill](https://hyperskill.org/learn/step/12100#inner-join)
+
 The joins only return the records that match, not necessarily the full table, mainly column.
+
+## Data Modification
+
+## Functions and Operations in SQL
+Expressions can be used on column values to extract specific data in the SELECT clause. These can be simple aithmetic operations, functions, data operations, or string manipulation. When using SELECT with strings that have multiple values use double quotes (*"brand identity"*).
+ The **AS** keyword makes it easy to provide aliases for the data that shows the result of an operation. 
+ ```sql
+ SELECT price / 2 AS half_price
+ ```
+
+ ### Aggregate Functions
+ Aggregate expressions of functions are used to summarise a group of data, but performing calculations on a set of values and returning a single value.
+ Common aggregate functions:
+ - **COUNT(*)/COUNT(col_name)**: Counts the total number of records including NULL values/Counts the records in a specified column and exclude NULL records.
+ - **MIN/MAX(col_nam)**: Finds the smallest or largest value in a column. Can also be used on strings.
+ - **AVG(col_nam)**: Returns the mean of the values.
+ - **SUM(col_nam)**: Calculates the total numerical values.
+
+The GROUP BY clause is handy to use with aggregate functions. It categorises data with similar values based on specific columns, which allows the aggregate expressions to be performed on them. That is, calculations can be performed on the different types of values in a specific column and not just the entire column. 
+```sql
+SELECT product_category, SUM(sales_amount) AS total_sales
+FROM sales_data
+GROUP BY product_category; 
+```
+
+The HAVING clause works just like the WHERE but is to be used on the data that is specified by the GROUP BY clause when it is used after the WHERE clause.
+
+### Query Order of Operations
+Place in the position of execution
+1. **FROM** and **JOINS**: includes there subqueries.
+2. **WHERE**: conditions are applied to the rows from the tables specified from the FROM and JOIN statements.
+3. **GROUPBY**: records resulting from the WHERE are grouped.
+4. **HAVING**: adds additional queries to the records extracted by the GROUP BY clause.
+5. **SELECT**: expressions in the select are computed.
+6. **DISTINCT**: rows that doesn't satisfy this will be discarded.
+7. **ORDER BY**: rows are then sorted.
+8. **LIMIT/OFFSET**.
+
+Visual Representation of the order of a query:
+![Order of Execution](order-query.png)
+
+Source: [sqlbolt](https://sqlbolt.com/lesson/select_queries_order_of_execution)
+
+### Set Operations
+Set operations can be used to combine the results of multiple SELECT statements. They require that all the SELECT statements have:
+- The same number of columns.
+- All the coumns have the same datatype.
+- Columns are selected in the same order.
+
+Types of set operators
+| Set Operator    | Description/Use                   |
+|:---------------:|:----------------------------------|
+|`UNION` | merges the results of two or more SELECT statements, and removes duplicates |
+|`UNION ALL`| includes duplicates |
+|`INTERSECT` | returns the rows that are present both statements |
+|`EXCEPT/MINUS` | retursn the rows of the first set that are not in the second set |
+
+Example of the INTERSECT operator which will only choose names that are present in both sets:
+```sql
+SELECT name FROM class
+INTERSECT
+SELECT name from sport
+```
+
+
+
+
+
+
+## Resources
+- [sqlbolt](https://sqlbolt.com/)
