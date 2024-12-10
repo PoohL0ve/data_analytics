@@ -7,6 +7,7 @@ Topics discussed:
 4. [**Joining tables**](#queries-with-join)
 5. [**How to Modify Data?**](#data-modification)
 6. [**Performing Operations**](#functions-and-operations-in-sql)
+7. [**Working with Date and Time**](#date-and-time-in-sql)
 
 
 ## A Little on SQL
@@ -167,7 +168,6 @@ FROM sellers
 WHERE name = 'John' AND surname = 'Marley';
 ```
 
-
 ## Functions and Operations in SQL
 Expressions can be used on column values to extract specific data in the SELECT clause. These can be simple aithmetic operations, functions, data operations, or string manipulation. When using SELECT with strings that have multiple values use double quotes (*"brand identity"*).
  The **AS** keyword makes it easy to provide aliases for the data that shows the result of an operation. 
@@ -229,10 +229,91 @@ INTERSECT
 SELECT name from sport
 ```
 
+## Subqueries
+Statement like *SELECT, UPDATE, DELETE, INSERT* can use subqueries. The outer query is the main query and the inner query can use values from it.
+```sql
+SELECT *
+FROM persons
+WHERE age = (
+    SELECT MAX(age)
+    FROM persons
+);
+```
+Using the INSERT clause with two different databases and subqueries.
+```sql
+INSERT INTO books
+    (title, category)
+VALUES (
+    'Grokking Deep Learning',
+    (SELECT category FROM rented_books WHERE category = 'Grokking Algorithms')
+);
+```
 
+## Date and Time in SQL
+Common date and time types in SQL, mainly applicable to MySQL:
+- **DATE**: stores the date in the format year:month:day (2023:12:08), without the time.
+- **TIME**: stores the time in hh:mm:ss.
+- **DATETIME/TIMESTAMP**: combines the date and time. Timestamp is limited to '1970-01-01 00:00:01' UTC to '2038-01-19 03:14:07' UTC.
+- **INTERVAL**: used to store the differences:
+	- **INTERVAL YEAR TO MONTH**
+	- **INTERVAL DAY TO SECOND**: differences in days, hours, minutes, and seconds.
 
+To get the current date and time use the *CURDATE(), CURTIME() or CURRENT_DATE(), CURRENT_TIME()* functions. If both the time and date is needed use **CURRENT_TIMESTAMP()**.
+```sql
+SELECT CURRENT_TIMESTAAMP();
+```
 
+To get the difference in dates use the **DATEDIFF(first, second)** function. For the difference in time use **TIMEDIFF(first, second)**.
+```sql
+SELECT DATEDIFF('2020-05-15 09:34:34', '2020-05-10 15:34:43');
+```
+Use the EXTRACT() method to get a specific piece of a date.
+```sql
+SELECT EXTRACT(DAY FROM '2023:11:7 17:45:10');
+```
+Dates can be added and substracted. There are two methods that can be used to add.
+```sql
+-- add a month
+SELECT DATE_ADD(CURDATE(), INTERVAL 4 MONTH);
+-- add days
+SELECT ADDDATE(CURDATE(), 10);
+-- substract years
+SELECT DATE_SUB(CURDATE(), INTERVAL 3 YEAR);
+```
+Timezones can be converted with the syntax: COVERT_TZ(time, from_zone, to_zone).
+```sql
+SELECT CONVERT_TZ('2024:11:8 13:56:44', 'US/Central', 'UTC');
+```
 
+## Primary and Foreign Keys
+The foreign key is also called the reference key that can be used to reference data from another table. The **REFERENCE** key contain the the table and its primary key column to which the foreign key is referencing.
+There several things that the database can do if specified when creating the table with the foreign key. These actions make it easier to change the date based on the action of the primary table using ON UPDATE and ON DELETE.
+- *SET NULL*: changes the values corresponding to the key to NULL
+- *CASCADE*: automatically delete or update the rows.
+- *RESTRICT*: the operation in the parent table will be rejected.
+- *SET DEFAULT*: the table with the foreign key would be set to default values.
+- *NO ACTION*.
+
+```sql
+CREATE TABLE mistakes (
+	id INT PRIMARY KEY,
+	date DATE,
+	name VARCHAR(50),
+	location_id INT,
+	CONSTRAINT location_db FOREIGN KEY (location_id),
+	REFERENCES locations(loc_id),
+	ON DELETE CASCADE,
+	ON UPDATE CASCADE
+);
+```
+
+To add a foreign key to an existing table use the ALTER TABLE ADD syntax with the REFERENCE to the parent table. If there is a need to add an existing foreign key to multiple columns use:
+```sql
+ALTER TABLE clubs
+ADD CONSTRAINT persons_db FOREIGN KEY (person_id)
+REFERENCES persons(person_id)
+```
+The ALTER DROP FOREIGN KEY clause is used to delete a foreign key. If the foreign key is unknown use the SHOW CREATE TABLE tableName to get it.
 
 ## Resources
 - [sqlbolt](https://sqlbolt.com/)
