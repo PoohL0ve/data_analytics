@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS houses (
 	year_listed INT  --can also use INTEGER
 );
 ```
-Other constraints include NOT NULL, FOREIGN KEY, UNIQUE and so on.
+Other constraints include NOT NULL, FOREIGN KEY, UNIQUE CHECK (can add a calculation), DEFAULT.
 
 The ALTER statement is used to add and modify(rename and delete) columns of a table. 
 ```sql
@@ -151,6 +151,11 @@ DROP modify_date  -- can also be used to delete a DB
 -- Rename the table
 ALTER TABLE nobel_prizes
 RENAME TO nobel_winners
+```
+Constraints with Alter
+```sql
+ALTER TABLE employees
+ALTER first_name SET DEFAULT 'John';
 ```
 
 **DROP TABLE** can be used to remove a table. However, ensure that tables with foreign key that depend on the table is taken care of before removing. Also check if the table exists by using **DROP TABLE IF EXISTS**.
