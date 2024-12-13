@@ -5,7 +5,7 @@ Topics discussed:
 2. [**Filtering Data**](#filtering-data-with-where)
 3. [**Sort the Data**](#more-filtering-and-sorting)
 4. [**Joining tables**](#queries-with-join)
-5. [**How to Modify Data?**](#data-modification)
+5. [**How to Modify Data?**](#data-modification-language)
 6. [**Performing Operations**](#functions-and-operations-in-sql)
 7. [**Working with Date and Time**](#date-and-time-in-sql)
 
@@ -105,6 +105,26 @@ ORDER BY player ASC/DESC
 LIMIT 6 OFFSET 13;
 ```
 
+### Using the WITH clause
+The **WITH** clause is known as a **Common Table Expression** (CTE) for refactoring long and complex queries. The output is not permanent but can be referenced in the query. The temporary results can be used inside the scope of the SELECT, DELETE, UPDATE, INSERT, and MERGE statements. Example:
+```sql
+WITH cte_total_value AS (  -- temporary table
+    SELECT 
+        product_name,
+        quantity,
+        price,
+        price * quantity AS total_value
+    FROM inventory
+)
+-- Use the temporary table
+SELECT *
+FROM cte_total_value
+ORDER BY total_value DESC;
+```
+It is similiar to a subquery, with the exception that it can be recursive and be re-used.
+2233444
+2233334444
+
 ## Queries with JOIN
 **JOIN** is used to combine rows of data about an entity across two different tables. The **INNER** JOIN is the same as using JOIN alone. It only return matching column of a table. That is, if there is a column of the same name in both tables it will return data based on that column.The **ON** keyword is used to specifed what column to match on.
 ```sql
@@ -125,7 +145,7 @@ Source: [HyperSkill](https://hyperskill.org/learn/step/12100#inner-join)
 
 The joins only return the records that match, not necessarily the full table, mainly column.
 
-## Data Modification
+## Data Modification Language
 The **INSERT** statement provides a way to add values to a table. It specifies the table, the column names, and the values to be placed. The number of values should correspond to the number of columns, and multiple values (tuples) should be separated by a comma. Not all columns need to be specified, such as auto-incrementing ids (primary-key).
 ```sql
 INSERT INTO sports
@@ -149,7 +169,7 @@ DELETE FROM <TableName> WHERE <condition>
 A new table can be created by specifying the column names, data types, an optional constraint, and an optional default value. The **IF NOT EXISTS** clause can be added to only add the table if it is not in the database already. The CREATE clause can also be used to create a new database.
 ```sql
 CREATE TABLE IF NOT EXISTS houses (
-	house_id INT PRIMARY KEY AUTOINCREMENT,
+	house_id INT PRIMARY KEY AUTO_INCREMENT,
 	type TEXT,
 	manager TEXT,
 	price FLOAT,
@@ -194,6 +214,18 @@ FROM sellers
 WHERE name = 'John' AND surname = 'Marley';
 ```
 
+**Sequences** are objects that are used to generic unique numeric values such as *primar key* values. In MySQL it can be done by using the **AUTO_INCREMENT** clause when creating a table. Restrictions:
+- Only one column in a table can use it
+- The column should be of the Interger type
+- A NOT NULL contraint will be automatically added in MySQL if not specified.
+
+However, to change the starting point of the clause use the ALTER TABLE clause:
+```sql
+/* Works as there can only be ONE AUTO_INCREMENT
+in a table (column) */
+ALTER TABLE sports AUTO_INCREMENT = 10
+```
+
 ## Functions and Operations in SQL
 Expressions can be used on column values to extract specific data in the SELECT clause. These can be simple aithmetic operations, functions, data operations, or string manipulation. When using SELECT with strings that have multiple values use double quotes (*"brand identity"*).
  The **AS** keyword makes it easy to provide aliases for the data that shows the result of an operation. 
@@ -216,7 +248,57 @@ FROM sales_data
 GROUP BY product_category; 
 ```
 
-The HAVING clause works just like the WHERE but is to be used on the data that is specified by the GROUP BY clause when it is used after the WHERE clause.
+The HAVING clause works just like the WHERE but is to be used on the data that is specified by the GROUP BY clause when it is used after the WHERE clause. It canl also be used in subqueries instead of the WHERE clause and works well will common functions such as AVG.
+
+### Common String Operations in SQL (MySQL)
+1. concat(): Joins two or more string values together
+	- SELECT concate(firstName, ' ', lastName) AS full_name
+2. char_length(): return the length of a string.
+3. subtr(string, start, amount)
+4. replace(string, oldvalue, newvalue): doesn't modify the database, just displays in the result
+5. reverse(string)
+
+```sql
+-- String operations can be combined
+SELECT
+	concat(substr(first_name, 1, 1), '.', last_name)
+FROM singers;
+```
+
+### Conditional Function in SQL
+The **CASE** clause is similiar to the if-else statement of common programming languages for performing conditional logic. It can take multiple **WHEN - THEN** clauses and create columns based on logic.
+```sql
+SELECT name, gender
+	CASE city  -- similar to switch (optional)
+		WHEN 'Atlanta' THEN 'Georgia'
+		WHEN 'LA' THEN 'California'
+		ELSE 'No State'
+	END AS state
+FROM people;
+```
+The **COALESCE()** function returns the first NON NULL value in a list or column. It can be used to replace NULL values with anything specified. Example COALESCE(streets, 'does not exist'); NULL values would be replaced with 'does not exist' in a column.
+
+### Window Functions
+They allow for the calculations of data across rows that are related to the current row. They are used so there would be no need to group results. The **OVER()** clause defines the window of rows to perform the calulation on. Components:
+- **PARTITION BY**: divide the result into components to which the window function is applied
+- **ORDER BY**: defines the sequence in which the function is applied.
+
+Common Window Functions:
+1. **SUM()**: calculates the running total
+2. **AVG()**: calculates the average
+3. **RANK()**: assigns a rank to each row within a partition with gaps for ties
+4. **ROW_NUMBER()**: provides a unique number to each rows in a partition.
+
+Common window frame combinations
+- ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW:
+	-Includes all rows from the start of the partition up to the current row. Useful for cumulative sums.
+- ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING:
+	- Includes the current row and all rows following it to the end of the partition.
+- ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING:
+	- Includes all rows in the partition. This is the default if no frame is specified.
+- ROWS BETWEEN n PRECEDING AND n FOLLOWING:
+	- Includes a specific number of rows before and after the current row, creating a moving window of fixed size.
+
 
 ### Query Order of Operations
 Place in the position of execution
