@@ -3,6 +3,8 @@ Data analytics in simple terms is about understanding data by extracting useful 
 
 Analytical thinking is about identifying and defining a problem and then solving it by using data in an organised, step-by-step manner (Google Data Analytics Professional Certificate: [Foundations: Data, Data, Everywhere](https://www.coursera.org/learn/foundations-data?specialization=google-data-analytics)). A data analyst must have the relevant soft skills: communication, curiosity, problem solving, and creativity.
 
+**Data Analysis** is the process of collecting and analysing data using several statistical and mathematical methods to reveal useful information.
+
 ## 📊 Different Types of Analytics
 There are 4 main types of analytics that are specific to the respective needs of the data.
 |Analytics Type   | Description                           |
@@ -56,3 +58,36 @@ There are numerous tools that can be used in data analysis. The following are so
 - SQL: Structured Query Language for working with databases
 - Visualisation Tools: Power BI and Tableau to make static or dynamic visuals
 - Programming Languages: Python and R along with relevant libraries like pandas, ggplot, and seaborn are the main programming languages used.
+
+## Business Intelligence
+BI is the strategies, processes, and technologies organisations use to collect, analyse, and present data (information) in a meaningful way, to support decision-making. BI dashboards are used to convey important information in snapshots. Dashboards should be interactive, adaptive/responsive, consistent/standardised, relevant/meaningful, illustrative, and use clarity and simplicity.
+### Business Metrics
+**Conversion Rate (CR)** is the share of customers that make a purchase. Example if 10 people visit a store and 2 of those by something, the the CR is 20%. A **product/marketing funnel** is a sequence of CRs where each steps shows a conversion to the other.
+
+## Data Warehousing
+A data warehouse is a large repository for storing data organised in a structured manner. Online Analytical Processing (OLAP) allows you to interact with the data.Online Transaction Processing (OLTP) is the mechanism used to collect payment in online stores. OLTP databases are used to handle everyday transactions for businesses.
+
+Data integration and ETL (Extract, Tranform, Load) involves the collection, transformation, and loading of data from various sources into the data warehouse.
+1. Extracting data: process of receiving data from different source file like dbs, csv's and so on, or even from other tables in databases.
+2. Transforming data: ensures that the data is cleaned and in the right format to meet the requirements of the warehouse:
+     - Data Cleaning: identifying errors and inconsistencies like duplicates, missing values, and null values.
+     - Data Integration: multiple data files are placed into a unified format or structure.
+     - Data enrichment: adding additional data.
+     - Data aggregation: summarising the data.
+3. Loading data: the data is loaded in teh warehouse for querying.
+     - There are several models of warehouses that the data can be loaded in.
+
+Data Warehousing Models
+- **Star Schema**: the center table is the fact table and the other tables surrounding it contains different types of business information such as products, customers, suppliers etc.
+- **Snowflake Schema**: An extension of the snow flake where tables are further divided into more specific tables, like having a table for customer address opposed to just leaving it in the customer table.
+- **Galaxy Schema**: multiple interconnect start schemas.
+
+Types of OLAP:
+- **MOLAP**: Multi-dimensional OLAPs store data in cubes making it efficient for complex queries. The cubes are organised in hierarchies and measures.
+- **ROLAP**: data is stored in relational databases in a star or snowflake schema, that makes it efficient for scaling.
+- **HOLAP**: combination of MOLAP (stores summary data), and ROLAP (stores detailed information).
+
+OLAP engines and processing are the most value structures that allows the system to be effective. Ensuring that uses can interact with data in a fast, flexible, and insightful way. Aggreation and precomputation can be done in OLAP systems which is the summarising of data at certain levels. OLAP systems are designed to optimise querying by usng algorithms, indexing, and data retrieval methods. Front-end client tools include data visualisation and reporting tools, and adhoc querying tools.
+
+## Cohorts Analysis
+It is the process of grouping individuals into cohorts/groups based on common characteristics and tracking the behaviour over time. The reason for this is to discover insights on engagement, retention, and churn rates. Retention rate measures the percentage of cutomers who continue to engage with a product/service overtime. The chrun rate is the percentage of cumstomers that stop using a product over a specific period of time.

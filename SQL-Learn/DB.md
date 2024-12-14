@@ -20,3 +20,13 @@ The schema describes the structure and the datatypes that each column can take.
 ### Normalisation
 Database normalisation is the process of organizing data into tables to reduce redundancy and improve data integrity. It involves breaking down
 a large database into smaller, related tables and defining relationships between them using primary and foreign keys. As the data is spread across different databases, using the **JOIN** clause in SQL can combine tables to retrieve relevant data.
+
+Database transactions represents a unit of work performed within a DBMS against a databse, which is any change such as when retrieving or inserting data. There four properties of a transaction referred to as ACID properties:
+- **Atomicity**: if one transaction fails, all should fail.
+- **Consistency**: any transaction should take the DB from one state to another.
+- **Isolation**: transactions should be isolated, that it, one should not affect the other.
+- **Durability**: data modification that occurs within a successful transaction should be permantly kept.
+
+The cycle should be:
+- Active -> failed -> aborted -> exist or
+- Active -> partially commited -> committed -> exit.

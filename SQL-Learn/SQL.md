@@ -32,8 +32,6 @@ Like any other language SQL has a coding style:
 |System | Automatically created by the DBMS. Use SHOW VARIABLES with the optional parameters Global and Local. To use them use SELECT @@ |
 
 
-
-
 There are several basic data types that can be used in SQL:
 - **Interger**: represents numbers from -2147483648 to +2147483648.
 - **Decimal**: DECIMAL(precision, scale), where precision is the whole digit and scale is the number of units after the decimal point.
@@ -46,6 +44,25 @@ In SQL strings can be written in single or double quotes. Numbers can be explici
 CAST(value as DECIMAL());
 CAST(4.5 as DECIMAL(2, 2));
 ```
+### Views
+Views are a re-usable mechanism used for querying data from a database or table. It has the syntax:
+```sql
+CREATE [OR REPLACE]
+[ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
+VIEW view_name AS
+SELECT 
+    column1, 
+    column2, 
+    ...
+FROM 
+    table_name
+WHERE 
+    condition;
+```
+### Optimisation
+You can create a temporary table using the clause CREATE TEMPORARY TABLE which will only be viewable for the current session. DENSE_RANK() do not leave gaps in the rows. NTILE(n) splits groups. ROW_NUMBER().
+
+The EXPLAIN keyword used with the FORMAT=tree displays the execution steps of a query. The EXPLAIN ANALYZE is used to compare predictive data with actual data. USE INDEX forces an index for a variable.
 
 ## Filtering Data with WHERE
 The **WHERE** clause is applied to each row to determine if the data of the row satisfies the conditions. A basic look at how it is used:
@@ -97,13 +114,15 @@ SELECT column1, column2
 FROM Soccer 
 ORDER BY player ASC/DESC;
 ```
-The **LIMIT** clause is used to restrict the number rows and the **OFFSET** clause specifies where to start the limiting. They are generally placed last in a query.
+The **LIMIT** clause is used to restrict the number rows and the **OFFSET** clause specifies where to start the limiting. They are generally placed last in a query. The OFFSET can be the first argument to the LIMIT 10, 5. Other DBs may use FETCH FIRST or TOP.
 ```sql
 SELECT column1, column2 
 FROM Soccer 
 ORDER BY player ASC/DESC
 LIMIT 6 OFFSET 13;
 ```
+
+The **CUBE** clause is used with the GROUP BY to include all possible combination for aggregation, including the sum of all totals. **ROLL UP** generates an aggregated result for the specified columns in a hierachy and not totals. GROUPING SET (revisit this topic)
 
 ### Using the WITH clause
 The **WITH** clause is known as a **Common Table Expression** (CTE) for refactoring long and complex queries. The output is not permanent but can be referenced in the query. The temporary results can be used inside the scope of the SELECT, DELETE, UPDATE, INSERT, and MERGE statements. Example:
@@ -214,7 +233,7 @@ FROM sellers
 WHERE name = 'John' AND surname = 'Marley';
 ```
 
-**Sequences** are objects that are used to generic unique numeric values such as *primar key* values. In MySQL it can be done by using the **AUTO_INCREMENT** clause when creating a table. Restrictions:
+**Sequences** are objects that are used to generic unique numeric values such as *primary key* values. In MySQL it can be done by using the **AUTO_INCREMENT** clause when creating a table. Restrictions:
 - Only one column in a table can use it
 - The column should be of the Interger type
 - A NOT NULL contraint will be automatically added in MySQL if not specified.
@@ -249,6 +268,10 @@ GROUP BY product_category;
 ```
 
 The HAVING clause works just like the WHERE but is to be used on the data that is specified by the GROUP BY clause when it is used after the WHERE clause. It canl also be used in subqueries instead of the WHERE clause and works well will common functions such as AVG.
+
+Other useful functions in SQL:
+- **PERCENTILE_CONT(n)/PERCENTILE_DIST()**: calculates the median
+- **STDEV()**: standard deviation
 
 ### Common String Operations in SQL (MySQL)
 1. concat(): Joins two or more string values together
