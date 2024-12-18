@@ -9,6 +9,7 @@ Topics discussed:
 6. [**Performing Operations**](#functions-and-operations-in-sql)
 7. [**Working with Date and Time**](#date-and-time-in-sql)
 
+**PostgreSQL** is free and open-source. It was created by the University of California, Berkeley.
 
 ## A Little on SQL
 **Structured Query Language** (SQL) is the main programming language used to manipulate, transform, and query data that is stored in a relational database. It was created in 1970 to be similar to natural languages. SQL focuses on telling the system the *what* but not the *how*.
@@ -45,7 +46,7 @@ CAST(value as DECIMAL());
 CAST(4.5 as DECIMAL(2, 2));
 ```
 ### Views
-Views are a re-usable mechanism used for querying data from a database or table. It has the syntax:
+Views are a re-usable mechanism used for querying data from a database or table. It is the virtual table of a  saved result of a SELECT statement. It has the syntax:
 ```sql
 CREATE [OR REPLACE]
 [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
@@ -59,6 +60,9 @@ FROM
 WHERE 
     condition;
 ```
+
+Once the view is created, it can be queried from.
+
 ### Optimisation
 You can create a temporary table using the clause CREATE TEMPORARY TABLE which will only be viewable for the current session. DENSE_RANK() do not leave gaps in the rows. NTILE(n) splits groups. ROW_NUMBER().
 
@@ -114,7 +118,7 @@ SELECT column1, column2
 FROM Soccer 
 ORDER BY player ASC/DESC;
 ```
-The **LIMIT** clause is used to restrict the number rows and the **OFFSET** clause specifies where to start the limiting. They are generally placed last in a query. The OFFSET can be the first argument to the LIMIT 10, 5. Other DBs may use FETCH FIRST or TOP.
+The **LIMIT** clause is used to restrict the number rows and the **OFFSET** clause specifies where to start the limiting. They are generally placed last in a query. The OFFSET can be the first argument to the LIMIT 10, 5. Other DBs may use FETCH FIRST or TOP(n) after SELECT in SQL server.
 ```sql
 SELECT column1, column2 
 FROM Soccer 
